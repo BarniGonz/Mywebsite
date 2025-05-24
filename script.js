@@ -1,4 +1,4 @@
-const stripe = Stripe('YOUR_STRIPE_PUBLIC_KEY'); // Replace with your actual Stripe public key
+const stripe = Stripe('JS7GSK-762H28-JSHUSJH'); // Replace with your actual Stripe public key
 
 document.querySelectorAll('.buyBtn').forEach(button => {
     button.addEventListener('click', async (event) => {

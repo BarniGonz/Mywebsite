@@ -1,5 +1,5 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -7,126 +7,35 @@ body {
 
 header {
     background: #2980b9;
-    color: #ffffff;
-    padding: 20px 0;
-    text-align: center;
-}
-
-.logo {
-    font-size: 2.5em;
-    font-family: 'Georgia', serif;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-}
-
-nav {
-    margin-bottom: 10px;
-}
-
-.action-bar {
-    height: 30px;
-    margin-top: 10px;
-    display: none;
-    font-weight: bold;
-    text-align: center;
-}
-
-.success {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.error {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-
-main {
+    color: white;
     padding: 20px;
-}
-
-#products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    text-align: center;
 }
 
 .product {
-    background: #ffffff;
-    border: 1px solid #dddddd;
+    background: white;
+    border: 1px solid #ddd;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
+    margin: 15px;
+    border-radius: 5px;
+    text-align: center;
 }
 
-.product:hover {
-    transform: scale(1.05);
+button {
+    background: #2980b9;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #2c3e50;
 }
 
 footer {
     text-align: center;
-    padding: 10px 0;
-    background: #2980b9;
-    color: #ffffff;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
-}
-
-.modal-content {
-    background-color: #ffffff;
-    margin: 5% auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-#paymentForm, #signupForm, #loginForm {
-    display: flex;
-    flex-direction: column;
-}
-
-#paymentForm label, #signupForm label, #loginForm label {
-    margin: 10px 0 5px;
-}
-
-#paymentForm input, #signupForm input, #loginForm input {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.message {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    display: none;
+    background: #2980b9;
+    color: white;
 }

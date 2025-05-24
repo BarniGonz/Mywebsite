@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thank You - Barni Shop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(-45deg, #ff6ec4, #7873f5, #42e695, #f9d423, #ff6ec4);
+            background-size: 400% 400%;
+            animation: gradientBG 8s ease-in-out infinite;
+        }
+        @keyframes gradientBG {
+            0% {background-position:0% 50%;}
+            50% {background-position:100% 50%;}
+            100% {background-position:0% 50%;}
+        }
+        .logo {
+            font-size: 2.2em;
+            font-family: 'Georgia', serif;
+            letter-spacing: 2px;
+            color: #fff;
+            margin-top: 30px;
+            text-shadow: 0 2px 16px #0008;
+        }
+        .op-warning {
+            margin: 40px auto 30px auto;
+            padding: 18px 20px;
+            max-width: 400px;
+            border-radius: 15px;
+            background: rgba(0,0,0,0.7);
+            box-shadow: 0 6px 32px #0006;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            text-align: center;
+            position: relative;
+        }
+        .op-warning-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            background: linear-gradient(90deg, #ff6ec4, #42e695, #f9d423, #7873f5, #ff6ec4);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 3s linear infinite;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 8px #0006;
+        }
+        @keyframes gradientText {
+            0% {background-position:0% 50%;}
+            50% {background-position:100% 50%;}
+            100% {background-position:0% 50%;}
+        }
+        .op-warning-text {
+            color: #fff;
+            font-size: 1.08em;
+            margin-bottom: 10px;
+        }
+        .key-box {
+            background: linear-gradient(90deg, #42e695, #ff6ec4, #f9d423, #7873f5, #42e695);
+            background-size: 300% 300%;
+            animation: gradientText 5s ease-in-out infinite;
+            font-size: 1.5em;
+            padding: 18px 10px;
+            margin: 30px auto 20px auto;
+            max-width: 370px;
+            border-radius: 10px;
+            text-align: center;
+            letter-spacing: 2px;
+            font-weight: bold;
+            color: #fff;
+            box-shadow: 0 4px 30px #0004;
+            user-select: none;
+            -webkit-text-stroke: 0.7px #111;
+            text-stroke: 0.7px #111;
+            text-shadow: 0 1px 3px #0006;
+        }
+        .timer {
+            font-size: 1em;
+            color: #fff;
+            text-shadow: 0 1px 6px #0007;
+        }
+        .screenshot-tip {
+            color: #fff;
+            margin-top: 15px;
+            font-size: 1.1em;
+            font-style: italic;
+            text-shadow: 0 2px 8px #0008;
+        }
+        .email-link {
+            color: #f9d423;
+            font-weight: bold;
+            text-decoration: underline;
+            word-break: break-all;
+        }
+        @media (max-width: 500px) {
+            .op-warning, .key-box { max-width: 96vw; font-size: 1em; }
+            .logo { font-size: 1.2em; }
+        }
+        ::selection { background: transparent; }
+        ::-moz-selection { background: transparent; }
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+            touch-action: pan-y;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Barni Shop</div>
+    </header>
+    <main style="text-align:center; padding:40px 0 0 0;">
+        <div class="op-warning">
+            <div class="op-warning-title">⚠️ WARNING! DO NOT LEAVE ⚠️</div>
+            <div class="op-warning-text">
+                Please <b>take a screenshot</b> of your <span style="color:#f9d423;">ID</span> below.<br>
+                <span style="color:#ff6ec4;">You must send this screenshot to:</span><br>
+                <a class="email-link" href="mailto:barnigonzales43329@gmail.com">barnigonzales43329@gmail.com</a>
+            </div>
+        </div>
+        <div class="key-box" id="keyBox"></div>
+        <div class="timer" id="timer"></div>
+        <div class="screenshot-tip">This ID is unique and will disappear if you reload or leave this page.</div>
+    </main>
+    <footer>
+        <p style="color:#fff;text-shadow:0 1px 6px #0007;">&copy; 2025 Barni Shop</p>
+    </footer>
+    <script>
+    function generateKey() {
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        let key = "";
+        for (let i = 0; i < 16; i++) {
+            key += chars.charAt(Math.floor(Math.random() * chars.length));
+            if ((i+1)%4===0 && i!==15) key += "-";
+        }
+        return key;
+    }
+
+    function showKey() {
+        const key = generateKey();
+        const keyBox = document.getElementById("keyBox");
+        keyBox.textContent = key;
+        // Show timer for 3 days
+        const KEY_DURATION_MS = 3 * 24 * 60 * 60 * 1000; // 3 days in ms
+        const start = Date.now();
+        function updateTimer() {
+            const now = Date.now();
+            const left = KEY_DURATION_MS - (now - start);
+            if (left <= 0) {
+                keyBox.innerHTML = '<span style="color:#c0392b;font-weight:bold;">ID expired</span>';
+                document.getElementById("timer").textContent = "";
+                document.querySelector('.screenshot-tip').textContent = "This ID has expired. Please contact support if you need help.";
+                return;
+            }
+            const days = Math.floor(left / (24*60*60*1000));
+            const hours = Math.floor((left % (24*60*60*1000)) / (60*60*1000));
+            const mins = Math.floor((left % (60*60*1000)) / (60*1000));
+            const secs = Math.floor((left % (60*1000)) / 1000);
+            document.getElementById("timer").textContent =
+                `ID expires in: ${days}d ${hours}h ${mins}m ${secs}s (for this visit only)`;
+            setTimeout(updateTimer, 1000);
+        }
+        updateTimer();
+    }
+    showKey();
+
+    // BASIC COPY PROTECTION
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+    document.addEventListener('selectstart', function(e) { e.preventDefault(); });
+    document.addEventListener('copy', function(e) { e.preventDefault(); });
+    document.addEventListener('cut', function(e) { e.preventDefault(); });
+    document.addEventListener('paste', function(e) { e.preventDefault(); });
+    document.addEventListener('keydown', function(e) {
+        if (
+            (e.ctrlKey && ['c','u','s','a'].includes(e.key.toLowerCase())) ||
+            e.key === 'F12'
+        ) {
+            e.preventDefault();
+        }
+    });
+    </script>
+</body>
+</html>

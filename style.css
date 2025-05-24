@@ -6,11 +6,10 @@ body {
 }
 
 header {
-    background: #2c3e50;
-    color: #ecf0f1;
+    background: #2980b9;
+    color: #ffffff;
     padding: 20px 0;
     text-align: center;
-    position: relative;
 }
 
 .logo {
@@ -18,7 +17,6 @@ header {
     font-family: 'Georgia', serif;
     letter-spacing: 2px;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 nav {
@@ -47,10 +45,15 @@ main {
     padding: 20px;
 }
 
+#products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
 .product {
     background: #ffffff;
     border: 1px solid #dddddd;
-    margin: 20px 0;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -64,7 +67,7 @@ main {
 footer {
     text-align: center;
     padding: 10px 0;
-    background: #2c3e50;
+    background: #2980b9;
     color: #ffffff;
 }
 

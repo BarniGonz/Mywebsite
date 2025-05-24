@@ -103,7 +103,9 @@ function login(event) {
     const user = users.find(user => user.username === username && user.password === password);
     if (user) {
         isLoggedIn = true;
+        localStorage.setItem('loggedInUser', username);
         showActionBar('Login successful! Welcome!', true);
+        document.getElementById('welcomeMessage').innerText = `Welcome, ${user.username}!`;
         document.getElementById('mainContent').style.display = 'block';
         closeModal(document.getElementById('loginModal'));
         closeModal(document.getElementById('signupModal'));
@@ -120,6 +122,13 @@ function showMessage(element, message, isSuccess) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+        isLoggedIn = true;
+        document.getElementById('welcomeMessage').innerText = `Welcome back, ${loggedInUser}!`;
+        document.getElementById('mainContent').style.display = 'block';
+    }
+
     document.querySelectorAll('.product button').forEach(button => {
         button.addEventListener('click', () => {
             const productElement = button.parentElement;

@@ -107,6 +107,7 @@ function login(event) {
         showActionBar('Login successful! Welcome!', true);
         document.getElementById('welcomeMessage').innerText = `Welcome, ${user.username}!`;
         document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('navBar').style.display = 'none'; // Hide login/signup buttons
         closeModal(document.getElementById('loginModal'));
         closeModal(document.getElementById('signupModal'));
     } else {
@@ -127,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isLoggedIn = true;
         document.getElementById('welcomeMessage').innerText = `Welcome back, ${loggedInUser}!`;
         document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('navBar').style.display = 'none'; // Hide login/signup buttons
     }
 
     document.querySelectorAll('.product button').forEach(button => {

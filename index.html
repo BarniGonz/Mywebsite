@@ -2,34 +2,124 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Prevent zoom and horizontal pan on mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Barni Shop</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://js.stripe.com/v3/"></script>
+    <script 
+      src="https://www.paypal.com/sdk/js?client-id=BAADHFcEAOLUME4Wayx-bBu5eqfFngK_RYeX6ZOqlg7NzDHScEyON-aiYemPuQ2qqu5DLDrO-7-qn51FS4&components=hosted-buttons&disable-funding=venmo&currency=PHP">
+    </script>
 </head>
 <body>
+    <div class="gradient-bg"></div>
     <header>
         <div class="logo">Barni Shop</div>
+        <div class="welcome-text">WELCOME TO BARNI SHOP</div>
+        <nav>
+            <button id="signupBtn">Sign Up</button>
+            <button id="loginBtn">Log In</button>
+            <button id="logoutBtn" style="display: none;">Log Out</button>
+        </nav>
         <div class="action-bar" id="actionBar"></div>
     </header>
-    <main>
-        <h2>Our Products</h2>
-        <div class="product" data-price="50">
-            <h3>Key for ₱50</h3>
-            <button class="buyBtn">Buy Now</button>
-        </div>
-        <div class="product" data-price="100">
-            <h3>Key for ₱100</h3>
-            <button class="buyBtn">Buy Now</button>
-        </div>
-        <div class="product" data-price="200">
-            <h3>Key for ₱200</h3>
-            <button class="buyBtn">Buy Now</button>
-        </div>
+
+    <main id="mainContent" style="display: none;">
+        <section id="products">
+            <h2>Our Products</h2>
+
+            <!-- PRODUCT 1 (NEW) -->
+            <div class="product" data-name="Product 1" data-price="0.00">
+                <h3>COD WAZRONE 3 CLIENT</h3>
+                <p>- Undetected -</p>
+                <p class="price-tag">Price: $0.00</p>
+                <div id="paypal-container-XCSXV4DWKHEVL"></div>
+                <script>
+                  paypal.HostedButtons({
+                    hostedButtonId: "XCSXV4DWKHEVL",
+                  }).render("#paypal-container-XCSXV4DWKHEVL");
+                </script>
+            </div>
+
+            <!-- PRODUCT 2 -->
+            <div class="product" data-name="Product 2" data-price="1.81">
+                <h3>COD WAZRONE 3 CLIENT</h3>
+                <p>- Undetected -</p>
+                <p class="price-tag">Price: $1.81</p>
+                <div id="paypal-container-RSFFPCAPRVDZW"></div>
+                <script>
+                  paypal.HostedButtons({
+                    hostedButtonId: "RSFFPCAPRVDZW",
+                  }).render("#paypal-container-RSFFPCAPRVDZW");
+                </script>
+            </div>
+
+            <!-- PRODUCT 3 -->
+            <div class="product" data-name="Product 3" data-price="5.42">
+                <h3>COD WAZRONE 3 CLIENT</h3>
+                <p>- Undetected -</p>
+                <p class="price-tag">Price: $5.42</p>
+                <div id="paypal-container-9PQWF9ZJ6BEHJ"></div>
+                <script>
+                  paypal.HostedButtons({
+                    hostedButtonId: "9PQWF9ZJ6BEHJ",
+                  }).render("#paypal-container-9PQWF9ZJ6BEHJ");
+                </script>
+            </div>
+
+            <!-- PRODUCT 4 -->
+            <div class="product" data-name="Product 4" data-price="21.68">
+                <h3>COD WAZRONE 3 CLIENT</h3>
+                <p>- Undetected -</p>
+                <p class="price-tag">Price: $21.68</p>
+                <div id="paypal-container-SE6GXHNFUPAUE"></div>
+                <script>
+                  paypal.HostedButtons({
+                    hostedButtonId: "SE6GXHNFUPAUE",
+                  }).render("#paypal-container-SE6GXHNFUPAUE");
+                </script>
+            </div>
+        </section>
     </main>
+
     <footer>
         <p>&copy; 2025 Barni Shop</p>
     </footer>
+
+    <!-- Auth Modal (Login/Signup) -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <!-- Login Form -->
+            <div id="loginSection">
+                <h2>Log In</h2>
+                <form id="loginForm">
+                    <label for="loginUsername">Username:</label>
+                    <input type="text" id="loginUsername" required>
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" required>
+                    <button type="submit">Log In</button>
+                </form>
+                <div id="loginMessage" class="message"></div>
+                <p class="switch-link">Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
+            </div>
+            <!-- Sign Up Form -->
+            <div id="signupSection" style="display:none;">
+                <h2>Sign Up</h2>
+                <form id="signupForm">
+                    <label for="signupUsername">Username:</label>
+                    <input type="text" id="signupUsername" required>
+                    <label for="signupEmail">Email:</label>
+                    <input type="email" id="signupEmail" required>
+                    <label for="signupPassword">Password:</label>
+                    <input type="password" id="signupPassword" required>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <div id="signupMessage" class="message"></div>
+                <p class="switch-link">Already have an account? <a href="#" id="showLogin">Log In</a></p>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

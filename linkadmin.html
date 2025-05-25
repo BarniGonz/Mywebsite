@@ -2,24 +2,147 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>One-Time Link Generator - Barni Shop</title>
+  <title>BARNI PANEL - One-Time Link Generator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { background: #181a20; color: #fff; font-family: sans-serif; text-align: center; padding: 60px 10px; }
-    .link-box { background: #23263a; margin: 30px auto; padding: 20px; border-radius: 10px; max-width: 400px; font-size: 1.1em; word-break: break-all; }
-    .btn { background: #42e695; color: #181a20; border: none; padding: 12px 30px; border-radius: 6px; font-size: 1.1em; cursor: pointer; margin-top: 20px; }
-    .btn:active { background: #2bd47d; }
-    .key { color: #f9d423; font-weight: bold; font-size: 1.2em; }
-    .success { color: #42e695; margin-top: 10px; }
-    .error { color: #ff6ec4; margin-top: 10px; }
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+    body {
+      background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-x: hidden;
+    }
+    .barni-header {
+      margin-top: 50px;
+      font-size: 2.7em;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 4px;
+      background: linear-gradient(90deg, #f9d423, #42e695, #ff6ec4, #7873f5, #f9d423 110%);
+      background-size: 200% 200%;
+      color: #fff;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      animation: gradientMove 3s linear infinite;
+      text-shadow: 0 0 18px #fff6, 0 0 36px #f9d42388, 0 0 48px #42e69566;
+      filter: drop-shadow(0 0 8px #fff8);
+      margin-bottom: 18px;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .glass-panel {
+      background: rgba(30, 34, 60, 0.7);
+      border-radius: 22px;
+      box-shadow: 0 10px 40px #000a, 0 2px 16px #42e69555;
+      padding: 38px 28px 32px 28px;
+      margin: 0 auto 30px auto;
+      max-width: 440px;
+      width: 94vw;
+      border: 2px solid rgba(249, 212, 35, 0.23);
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 2;
+    }
+    .link-box {
+      background: linear-gradient(90deg, #42e695cc, #ff6ec4cc, #f9d423cc, #7873f5cc, #42e695cc);
+      background-size: 300% 300%;
+      animation: gradientMove 5s ease-in-out infinite;
+      color: #fff;
+      font-size: 1.2em;
+      padding: 22px 14px;
+      border-radius: 13px;
+      margin-bottom: 18px;
+      box-shadow: 0 0 24px #42e69599, 0 2px 16px #ff6ec433;
+      word-break: break-all;
+      border: 1.5px solid #fff2;
+      text-shadow: 0 2px 12px #000a, 0 0 8px #fff8;
+      user-select: all;
+    }
+    .btn {
+      background: linear-gradient(90deg, #f9d423, #42e695, #ff6ec4, #7873f5, #f9d423);
+      background-size: 200% 200%;
+      color: #181a20;
+      border: none;
+      padding: 15px 38px;
+      border-radius: 8px;
+      font-size: 1.2em;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      margin-top: 18px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 16px #f9d42355, 0 0 14px #42e69555;
+      transition: transform 0.14s, box-shadow 0.18s;
+      text-shadow: 0 1px 8px #fff8;
+      outline: none;
+      border: 2.5px solid #fff3;
+      filter: drop-shadow(0 0 8px #f9d42388);
+      animation: gradientMove 4s linear infinite;
+    }
+    .btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 8px #ff6ec488;
+    }
+    .key {
+      color: #f9d423;
+      font-weight: bold;
+      font-size: 1.2em;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #fff8, 0 2px 8px #f9d42388;
+      filter: drop-shadow(0 0 6px #f9d423cc);
+    }
+    .success {
+      color: #42e695;
+      margin-top: 10px;
+      font-size: 1.08em;
+      text-shadow: 0 1px 8px #fff8, 0 2px 8px #42e69588;
+      filter: drop-shadow(0 0 6px #42e695cc);
+    }
+    .error {
+      color: #ff6ec4;
+      margin-top: 10px;
+      font-size: 1.08em;
+      text-shadow: 0 1px 8px #fff8, 0 2px 8px #ff6ec488;
+      filter: drop-shadow(0 0 6px #ff6ec4cc);
+    }
+    .footer {
+      color: #fff9;
+      font-size: 1em;
+      margin-top: 24px;
+      text-align: center;
+      text-shadow: 0 1px 8px #0008;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 600px) {
+      .barni-header { font-size: 1.4em; }
+      .glass-panel { padding: 18px 5vw 18px 5vw; }
+      .link-box { font-size: 1em; }
+      .btn { font-size: 1em; padding: 12px 18px; }
+    }
   </style>
 </head>
 <body>
-  <h2>One-Time Link Generator</h2>
-  <div id="linkBox" class="link-box">Click the button to generate a new link.</div>
-  <button class="btn" id="generateBtn">Generate New Link</button>
-  <div class="success" id="successMsg"></div>
-  <div class="error" id="errorMsg"></div>
+  <div class="barni-header">BARNI PANEL</div>
+  <div class="glass-panel">
+    <div id="linkBox" class="link-box">Click the button to generate a new link.</div>
+    <button class="btn" id="generateBtn">Generate New Link</button>
+    <div class="success" id="successMsg"></div>
+    <div class="error" id="errorMsg"></div>
+  </div>
+  <div class="footer">&copy; 2025 Barni Shop. All rights reserved.</div>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
     import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
@@ -52,14 +175,16 @@
       document.getElementById('errorMsg').textContent = "";
       const key = generateKey();
       const link = `https://barnigonz.github.io/Mywebsite/thankyou.html?key=${key}`;
-      document.getElementById('linkBox').innerHTML = `<b>Link:</b> <br><a href="${link}" target="_blank">${link}</a><br><span class="key">${key}</span>`;
+      document.getElementById('linkBox').innerHTML = `<b>Link:</b><br>
+        <a href="${link}" target="_blank" style="color:#fff;text-shadow:0 0 8px #42e695,0 0 12px #f9d423;">${link}</a>
+        <br><span class="key">${key}</span>`;
       try {
         await setDoc(doc(db, "thankyouLinks", key), {
           used: false,
           purchaseKey: key,
           created: Date.now()
         });
-        document.getElementById('successMsg').textContent = "Link saved! Copy and send to your buyer.";
+        document.getElementById('successMsg').textContent = "✨ Link saved! Copy and send to your buyer.";
       } catch (e) {
         document.getElementById('errorMsg').textContent = "Error saving link to Firestore.";
       }

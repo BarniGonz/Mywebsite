@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>One-Time Link Generator - Barni Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { background: #181a20; color: #fff; font-family: sans-serif; text-align: center; padding: 60px 10px; }
+    .link-box { background: #23263a; margin: 30px auto; padding: 20px; border-radius: 10px; max-width: 400px; font-size: 1.1em; word-break: break-all; }
+    .btn { background: #42e695; color: #181a20; border: none; padding: 12px 30px; border-radius: 6px; font-size: 1.1em; cursor: pointer; margin-top: 20px; }
+    .btn:active { background: #2bd47d; }
+    .key { color: #f9d423; font-weight: bold; font-size: 1.2em; }
+    .success { color: #42e695; margin-top: 10px; }
+    .error { color: #ff6ec4; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h2>One-Time Link Generator</h2>
+  <div id="linkBox" class="link-box">Click the button to generate a new link.</div>
+  <button class="btn" id="generateBtn">Generate New Link</button>
+  <div class="success" id="successMsg"></div>
+  <div class="error" id="errorMsg"></div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD5gKHNDZgtWscpJo_150qfob9BQamFGPI",
+      authDomain: "mywebsite-fce95.firebaseapp.com",
+      projectId: "mywebsite-fce95",
+      storageBucket: "mywebsite-fce95.appspot.com",
+      messagingSenderId: "753608677081",
+      appId: "1:753608677081:web:be90c067135207ddde90c8",
+      measurementId: "G-0P1EH4211W"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    function generateKey() {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      let key = "";
+      for (let i = 0; i < 16; i++) {
+        key += chars.charAt(Math.floor(Math.random() * chars.length));
+        if ((i+1)%4===0 && i!==15) key += "-";
+      }
+      return key;
+    }
+
+    async function generateLink() {
+      document.getElementById('successMsg').textContent = "";
+      document.getElementById('errorMsg').textContent = "";
+      const key = generateKey();
+      const link = `https://barnigonz.github.io/Mywebsite/thankyou.html?key=${key}`;
+      document.getElementById('linkBox').innerHTML = `<b>Link:</b> <br><a href="${link}" target="_blank">${link}</a><br><span class="key">${key}</span>`;
+      try {
+        await setDoc(doc(db, "thankyouLinks", key), {
+          used: false,
+          purchaseKey: key,
+          created: Date.now()
+        });
+        document.getElementById('successMsg').textContent = "Link saved! Copy and send to your buyer.";
+      } catch (e) {
+        document.getElementById('errorMsg').textContent = "Error saving link to Firestore.";
+      }
+    }
+
+    document.getElementById('generateBtn').onclick = generateLink;
+  </script>
+</body>
+</html>

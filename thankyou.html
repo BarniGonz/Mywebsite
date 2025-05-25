@@ -82,11 +82,6 @@
             text-stroke: 0.7px #111;
             text-shadow: 0 1px 3px #0006;
         }
-        .timer {
-            font-size: 1em;
-            color: #fff;
-            text-shadow: 0 1px 6px #0007;
-        }
         .screenshot-tip {
             color: #fff;
             margin-top: 15px;
@@ -99,6 +94,12 @@
             font-weight: bold;
             text-decoration: underline;
             word-break: break-all;
+        }
+        .error-message {
+            color: #ff6ec4;
+            margin-top: 15px;
+            font-size: 1.1em;
+            text-shadow: 0 2px 8px #0008;
         }
         @media (max-width: 500px) {
             .op-warning, .key-box { max-width: 96vw; font-size: 1em; }
@@ -126,66 +127,77 @@
                 <a class="email-link" href="mailto:barnigonzales43329@gmail.com">barnigonzales43329@gmail.com</a>
             </div>
         </div>
-        <div class="key-box" id="keyBox"></div>
-        <div class="timer" id="timer"></div>
-        <div class="screenshot-tip">This ID is unique and will disappear if you reload or leave this page.</div>
+        <div class="key-box" id="keyBox">Checking your unique ID...</div>
+        <div class="screenshot-tip" id="screenshotTip"></div>
+        <div class="error-message" id="errorMsg"></div>
     </main>
     <footer>
         <p style="color:#fff;text-shadow:0 1px 6px #0007;">&copy; 2025 Barni Shop</p>
     </footer>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+      import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyD5gKHNDZgtWscpJo_150qfob9BQamFGPI",
+        authDomain: "mywebsite-fce95.firebaseapp.com",
+        projectId: "mywebsite-fce95",
+        storageBucket: "mywebsite-fce95.appspot.com",
+        messagingSenderId: "753608677081",
+        appId: "1:753608677081:web:be90c067135207ddde90c8",
+        measurementId: "G-0P1EH4211W"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const key = urlParams.get('key');
+      const keyBox = document.getElementById('keyBox');
+      const tip = document.getElementById('screenshotTip');
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (!key) {
+        keyBox.textContent = "No key provided in URL.";
+        tip.textContent = "";
+      } else {
+        const docRef = doc(db, "thankyouLinks", key);
+
+        getDoc(docRef).then(docSnap => {
+          if (!docSnap.exists()) {
+            keyBox.textContent = "Invalid or expired link.";
+            tip.textContent = "";
+          } else if (docSnap.data().used) {
+            keyBox.textContent = "This link has already been used.";
+            tip.textContent = "";
+          } else {
+            // Mark as used
+            updateDoc(docRef, { used: true });
+            keyBox.textContent = docSnap.data().purchaseKey || key;
+            tip.textContent = "Take a screenshot of this code and send it to barnigonzales43329@gmail.com";
+          }
+        }).catch(e => {
+          keyBox.textContent = "Error checking key.";
+          tip.textContent = "";
+          errorMsg.textContent = e.message;
+        });
+      }
+    </script>
     <script>
-    function generateKey() {
-        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-        let key = "";
-        for (let i = 0; i < 16; i++) {
-            key += chars.charAt(Math.floor(Math.random() * chars.length));
-            if ((i+1)%4===0 && i!==15) key += "-";
-        }
-        return key;
-    }
-
-    function showKey() {
-        const key = generateKey();
-        const keyBox = document.getElementById("keyBox");
-        keyBox.textContent = key;
-        // Show timer for 3 days
-        const KEY_DURATION_MS = 3 * 24 * 60 * 60 * 1000; // 3 days in ms
-        const start = Date.now();
-        function updateTimer() {
-            const now = Date.now();
-            const left = KEY_DURATION_MS - (now - start);
-            if (left <= 0) {
-                keyBox.innerHTML = '<span style="color:#c0392b;font-weight:bold;">ID expired</span>';
-                document.getElementById("timer").textContent = "";
-                document.querySelector('.screenshot-tip').textContent = "This ID has expired. Please contact support if you need help.";
-                return;
-            }
-            const days = Math.floor(left / (24*60*60*1000));
-            const hours = Math.floor((left % (24*60*60*1000)) / (60*60*1000));
-            const mins = Math.floor((left % (60*60*1000)) / (60*1000));
-            const secs = Math.floor((left % (60*1000)) / 1000);
-            document.getElementById("timer").textContent =
-                `ID expires in: ${days}d ${hours}h ${mins}m ${secs}s (for this visit only)`;
-            setTimeout(updateTimer, 1000);
-        }
-        updateTimer();
-    }
-    showKey();
-
-    // BASIC COPY PROTECTION
-    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-    document.addEventListener('selectstart', function(e) { e.preventDefault(); });
-    document.addEventListener('copy', function(e) { e.preventDefault(); });
-    document.addEventListener('cut', function(e) { e.preventDefault(); });
-    document.addEventListener('paste', function(e) { e.preventDefault(); });
-    document.addEventListener('keydown', function(e) {
-        if (
-            (e.ctrlKey && ['c','u','s','a'].includes(e.key.toLowerCase())) ||
-            e.key === 'F12'
-        ) {
-            e.preventDefault();
-        }
-    });
+      // --- BASIC COPY PROTECTION ---
+      document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+      document.addEventListener('selectstart', function(e) { e.preventDefault(); });
+      document.addEventListener('copy', function(e) { e.preventDefault(); });
+      document.addEventListener('cut', function(e) { e.preventDefault(); });
+      document.addEventListener('paste', function(e) { e.preventDefault(); });
+      document.addEventListener('keydown', function(e) {
+          if (
+              (e.ctrlKey && ['c','u','s','a'].includes(e.key.toLowerCase())) ||
+              e.key === 'F12'
+          ) {
+              e.preventDefault();
+          }
+      });
     </script>
 </body>
 </html>

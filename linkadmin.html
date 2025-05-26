@@ -3,11 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <title>BARNI PANEL - One-Time Link Generator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a1a2e">
+  <meta name="description" content="Barni Shop One-Time Link Generator Admin Panel">
+  <meta property="og:title" content="BARNI PANEL - One-Time Link Generator">
+  <meta property="og:description" content="Barni Shop One-Time Link Generator Admin Panel">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+    :root {
+      --gradient: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+      --gradient-light: linear-gradient(-45deg, #ff6ec4, #7873f5, #42e695, #f9d423, #ff6ec4);
+      --header-gradient: linear-gradient(90deg, #f9d423, #42e695, #ff6ec4, #7873f5, #f9d423 110%);
+      --box-bg: rgba(30, 34, 60, 0.7);
+      --box-bg-light: rgba(255, 255, 255, 0.2);
+      --shadow: 0 10px 40px #000a, 0 2px 16px #42e69555;
+      --shadow-light: 0 10px 40px rgba(0, 0, 0, 0.2), 0 2px 16px #f9d42333;
+      --link-gradient: linear-gradient(90deg, #42e695cc, #ff6ec4cc, #f9d423cc, #7873f5cc, #42e695cc);
+      --btn-gradient: linear-gradient(90deg, #f9d423, #42e695, #ff6ec4, #7873f5, #f9d423);
+      --text-color: #fff;
+      --text-color-light: #232526;
+      --success: #42e695;
+      --error: #ff6ec4;
+      --focus: #f9d423;
+    }
     body {
-      background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+      background: var(--gradient);
       min-height: 100vh;
       margin: 0;
       padding: 0;
@@ -17,6 +41,23 @@
       align-items: center;
       justify-content: flex-start;
       overflow-x: hidden;
+      color: var(--text-color);
+      transition: background 0.5s, color 0.5s;
+    }
+    body.dark-mode {
+      background: linear-gradient(-45deg, #2c1a3e, #1a1a2e, #16213e, #2c2c1a, #2c1a3e);
+      color: #eee;
+    }
+    body.light-mode {
+      background: var(--gradient-light);
+      background-size: 400% 400%;
+      animation: gradientBG 8s ease-in-out infinite;
+      color: var(--text-color-light);
+    }
+    @keyframes gradientBG {
+      0% {background-position:0% 50%;}
+      50% {background-position:100% 50%;}
+      100% {background-position:0% 50%;}
     }
     .barni-header {
       margin-top: 50px;
@@ -24,7 +65,7 @@
       font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
       font-weight: 700;
       letter-spacing: 4px;
-      background: linear-gradient(90deg, #f9d423, #42e695, #ff6ec4, #7873f5, #f9d423 110%);
+      background: var(--header-gradient);
       background-size: 200% 200%;
       color: #fff;
       -webkit-background-clip: text;
@@ -35,16 +76,36 @@
       text-shadow: 0 0 18px #fff6, 0 0 36px #f9d42388, 0 0 48px #42e69566;
       filter: drop-shadow(0 0 8px #fff8);
       margin-bottom: 18px;
+      transition: color 0.4s;
     }
     @keyframes gradientMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+    .theme-toggle {
+      position: fixed;
+      top: 22px;
+      right: 22px;
+      padding: 10px;
+      background: #7873f5;
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 2px 10px #0003;
+      font-size: 1.3em;
+      transition: background 0.3s;
+      z-index: 10;
+    }
+    .theme-toggle:hover, .theme-toggle:focus {
+      background: #5a56d6;
+      outline: 2px solid var(--focus);
+    }
     .glass-panel {
-      background: rgba(30, 34, 60, 0.7);
+      background: var(--box-bg);
       border-radius: 22px;
-      box-shadow: 0 10px 40px #000a, 0 2px 16px #42e69555;
+      box-shadow: var(--shadow);
       padding: 38px 28px 32px 28px;
       margin: 0 auto 30px auto;
       max-width: 440px;
@@ -53,9 +114,18 @@
       backdrop-filter: blur(10px);
       position: relative;
       z-index: 2;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    body.dark-mode .glass-panel {
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+    }
+    body.light-mode .glass-panel {
+      background: var(--box-bg-light);
+      box-shadow: var(--shadow-light);
     }
     .link-box {
-      background: linear-gradient(90deg, #42e695cc, #ff6ec4cc, #f9d423cc, #7873f5cc, #42e695cc);
+      background: var(--link-gradient);
       background-size: 300% 300%;
       animation: gradientMove 5s ease-in-out infinite;
       color: #fff;
@@ -68,9 +138,38 @@
       border: 1.5px solid #fff2;
       text-shadow: 0 2px 12px #000a, 0 0 8px #fff8;
       user-select: all;
+      transition: color 0.4s, background 0.4s;
+    }
+    .copy-btn {
+      margin-left: 10px;
+      padding: 8px 16px;
+      background: #42e695;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s;
+      outline: none;
+    }
+    .copy-btn:hover, .copy-btn:focus {
+      background: #3ac580;
+      box-shadow: 0 0 0 2px var(--focus);
+    }
+    .copy-feedback {
+      display: inline-block;
+      margin-left: 8px;
+      color: #f9d423;
+      font-size: 1em;
+      vertical-align: middle;
+      animation: fadeOut 2s 0.7s forwards;
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; }
     }
     .btn {
-      background: linear-gradient(90deg, #f9d423, #42e695, #ff6ec4, #7873f5, #f9d423);
+      background: var(--btn-gradient);
       background-size: 200% 200%;
       color: #181a20;
       border: none;
@@ -91,6 +190,10 @@
       filter: drop-shadow(0 0 8px #f9d42388);
       animation: gradientMove 4s linear infinite;
     }
+    .btn:hover, .btn:focus {
+      transform: scale(1.05);
+      box-shadow: 0 2px 16px #ff6ec488;
+    }
     .btn:active {
       transform: scale(0.97);
       box-shadow: 0 2px 8px #ff6ec488;
@@ -104,14 +207,14 @@
       filter: drop-shadow(0 0 6px #f9d423cc);
     }
     .success {
-      color: #42e695;
+      color: var(--success);
       margin-top: 10px;
       font-size: 1.08em;
       text-shadow: 0 1px 8px #fff8, 0 2px 8px #42e69588;
       filter: drop-shadow(0 0 6px #42e695cc);
     }
     .error {
-      color: #ff6ec4;
+      color: var(--error);
       margin-top: 10px;
       font-size: 1.08em;
       text-shadow: 0 1px 8px #fff8, 0 2px 8px #ff6ec488;
@@ -125,27 +228,105 @@
       text-shadow: 0 1px 8px #0008;
       letter-spacing: 1px;
       margin-bottom: 18px;
+      transition: color 0.3s;
+    }
+    body.dark-mode .footer {
+      color: #bbb;
+    }
+    .input-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      margin-top: 8px;
+    }
+    .custom-key-input {
+      flex: 1;
+      font-size: 1.1em;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1.5px solid #f9d423;
+      outline: none;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      background: #fff3;
+      color: #fff;
+      transition: border 0.2s, background 0.2s;
+    }
+    .custom-key-input:focus {
+      border: 2px solid #42e695;
+      background: #fff5;
+    }
+    .countdown {
+      margin-top: 15px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #f9d423;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      transition: color 0.3s;
+    }
+    body.dark-mode .countdown {
+      color: #ffe066;
+    }
+    .social-links {
+      margin: 20px 0;
+    }
+    .social-links a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 1.5em;
+      transition: color 0.3s, transform 0.2s;
+    }
+    .social-links a:hover {
+      color: #f9d423;
+      transform: scale(1.2);
+    }
+    body.dark-mode .social-links a {
+      color: #ddd;
+    }
+    body.dark-mode .social-links a:hover {
+      color: #f9d423;
     }
     @media (max-width: 600px) {
       .barni-header { font-size: 1.4em; }
       .glass-panel { padding: 18px 5vw 18px 5vw; }
       .link-box { font-size: 1em; }
       .btn { font-size: 1em; padding: 12px 18px; }
+      .input-row { flex-direction: column; gap: 4px; }
+    }
+    ::selection { background: transparent; }
+    ::-moz-selection { background: transparent; }
+    html {
+      scroll-behavior: smooth;
+      max-width: 100vw;
+      overflow-x: hidden;
+      touch-action: pan-y;
     }
   </style>
 </head>
 <body>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false">🌓</button>
   <div class="barni-header">BARNI PANEL</div>
   <div class="glass-panel">
-    <div id="linkBox" class="link-box">Click the button to generate a new link.</div>
-    <button class="btn" id="generateBtn">Generate New Link</button>
+    <div id="linkBox" class="link-box" aria-live="polite">Click the button to generate a new link.</div>
+    <div class="input-row">
+      <input type="text" id="customKey" class="custom-key-input" maxlength="23" placeholder="Custom code (optional)">
+      <button class="btn" id="generateBtn">Generate New Link</button>
+    </div>
     <div class="success" id="successMsg"></div>
     <div class="error" id="errorMsg"></div>
+    <div class="countdown" id="countdown" aria-live="polite"></div>
+    <div class="social-links" aria-label="Share this panel">
+      <a href="#" aria-label="Share on Facebook" id="shareFacebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" aria-label="Share on Twitter" id="shareTwitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="Share on Instagram" id="shareInstagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Share on YouTube" id="shareYouTube"><i class="fab fa-youtube"></i></a>
+    </div>
   </div>
   <div class="footer">&copy; 2025 Barni Shop. All rights reserved.</div>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyD5gKHNDZgtWscpJo_150qfob9BQamFGPI",
@@ -160,6 +341,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // Generate a secure, readable key
     function generateKey() {
       const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
       let key = "";
@@ -170,27 +352,189 @@
       return key;
     }
 
+    // Copy to clipboard with feedback
+    function showCopyButton(link) {
+      let copyBtn = document.getElementById('copyBtn');
+      if (copyBtn) copyBtn.remove();
+      let feedback = document.getElementById('copyFeedback');
+      if (feedback) feedback.remove();
+
+      copyBtn = document.createElement('button');
+      copyBtn.id = 'copyBtn';
+      copyBtn.className = 'copy-btn';
+      copyBtn.type = 'button';
+      copyBtn.textContent = "Copy Link";
+      copyBtn.setAttribute('aria-label', 'Copy link to clipboard');
+      copyBtn.onclick = () => {
+        navigator.clipboard.writeText(link)
+          .then(() => {
+            let feedback = document.createElement('span');
+            feedback.id = 'copyFeedback';
+            feedback.className = 'copy-feedback';
+            feedback.innerHTML = "✔️ Copied!";
+            copyBtn.after(feedback);
+            setTimeout(() => feedback.remove(), 2000);
+          })
+          .catch(() => {
+            let feedback = document.createElement('span');
+            feedback.id = 'copyFeedback';
+            feedback.className = 'copy-feedback';
+            feedback.innerHTML = "❌ Copy failed!";
+            copyBtn.after(feedback);
+            setTimeout(() => feedback.remove(), 2000);
+          });
+      };
+      document.getElementById('linkBox').appendChild(copyBtn);
+    }
+
     async function generateLink() {
-      document.getElementById('successMsg').textContent = "";
-      document.getElementById('errorMsg').textContent = "";
-      const key = generateKey();
-      const link = `https://barnigonz.github.io/Mywebsite/thankyou.html?key=${key}`;
-      document.getElementById('linkBox').innerHTML = `<b>Link:</b><br>
+      const successMsg = document.getElementById('successMsg');
+      const errorMsg = document.getElementById('errorMsg');
+      const linkBox = document.getElementById('linkBox');
+      successMsg.textContent = "";
+      errorMsg.textContent = "";
+
+      let key = document.getElementById('customKey').value.trim().toUpperCase();
+      if (key) {
+        key = key.replace(/[^A-Z0-9\-]/g, '').replace(/-{2,}/g, '-').replace(/^-+|-+$/g, '');
+        if (key.length < 8 || key.length > 23) {
+          errorMsg.textContent = "Custom code must be 8-23 characters.";
+          return;
+        }
+        // Check if key exists
+        const docRef = doc(db, "thankyouLinks", key);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          errorMsg.textContent = "Custom code already used. Try another.";
+          return;
+        }
+      } else {
+        key = generateKey();
+      }
+
+      const link = `https://barnigonz.github.io/Mywebsite/thankyou.html?key=${encodeURIComponent(key)}`;
+      linkBox.innerHTML = `<b>Link:</b><br>
         <a href="${link}" target="_blank" style="color:#fff;text-shadow:0 0 8px #42e695,0 0 12px #f9d423;">${link}</a>
         <br><span class="key">${key}</span>`;
+      showCopyButton(link);
+
       try {
         await setDoc(doc(db, "thankyouLinks", key), {
           used: false,
           purchaseKey: key,
           created: Date.now()
         });
-        document.getElementById('successMsg').textContent = "✨ Link saved! Copy and send to your buyer.";
+        successMsg.textContent = "✨ Link saved! Copy and send to your buyer.";
+        startCountdown(300); // 5 minutes countdown for link urgency
       } catch (e) {
-        document.getElementById('errorMsg').textContent = "Error saving link to Firestore.";
+        errorMsg.textContent = "Error saving link to Firestore.";
       }
     }
 
     document.getElementById('generateBtn').onclick = generateLink;
+
+    // Countdown timer for urgency
+    const countdownEl = document.getElementById('countdown');
+    let countdownInterval;
+    function startCountdown(seconds) {
+      clearInterval(countdownInterval);
+      let remaining = seconds;
+      updateCountdown(remaining);
+      countdownInterval = setInterval(() => {
+        remaining--;
+        if (remaining <= 0) {
+          clearInterval(countdownInterval);
+          countdownEl.textContent = "Link sharing window expired. Generate a new link.";
+        } else {
+          updateCountdown(remaining);
+        }
+      }, 1000);
+    }
+    function updateCountdown(seconds) {
+      const min = Math.floor(seconds / 60);
+      const sec = seconds % 60;
+      countdownEl.textContent = `Share this link within ${min}:${sec.toString().padStart(2,'0')}`;
+    }
+
+    // Theme toggle and auto-detect
+    const themeToggle = document.getElementById('themeToggle');
+    function setTheme(mode) {
+      if (mode === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.body.classList.remove('light-mode');
+        themeToggle.textContent = '☀️';
+        themeToggle.setAttribute('aria-pressed', 'true');
+      } else {
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
+        themeToggle.textContent = '🌓';
+        themeToggle.setAttribute('aria-pressed', 'false');
+      }
+    }
+    function detectTheme() {
+      if (localStorage.getItem('darkMode')) {
+        setTheme(localStorage.getItem('darkMode') === 'true' ? 'dark' : 'light');
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setTheme('dark');
+      } else {
+        setTheme('light');
+      }
+    }
+    themeToggle.addEventListener('click', () => {
+      const isDark = !document.body.classList.contains('dark-mode');
+      setTheme(isDark ? 'dark' : 'light');
+      localStorage.setItem('darkMode', isDark);
+    });
+    detectTheme();
+
+    // Social share functionality for the admin panel link
+    const shareUrl = window.location.href;
+    document.getElementById('shareFacebook').addEventListener('click', (e) => {
+      e.preventDefault();
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank', 'noopener');
+    });
+    document.getElementById('shareTwitter').addEventListener('click', (e) => {
+      e.preventDefault();
+      const text = encodeURIComponent('Check out Barni Shop Admin Panel for one-time link generation!');
+      window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${text}`, '_blank', 'noopener');
+    });
+    document.getElementById('shareInstagram').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert("Instagram sharing is not directly supported via web. Please copy the link and share manually.");
+      navigator.clipboard.writeText(shareUrl);
+    });
+    document.getElementById('shareYouTube').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert("YouTube sharing is not directly supported via web. Please copy the link and share manually.");
+      navigator.clipboard.writeText(shareUrl);
+    });
+  </script>
+  <script>
+    // --- COPY PROTECTION ---
+    function preventEvent(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    document.addEventListener('contextmenu', preventEvent);
+    document.addEventListener('selectstart', preventEvent);
+    document.addEventListener('copy', e => {
+      if (!e.target.classList || !e.target.classList.contains('copy-btn')) {
+        preventEvent(e);
+      }
+    });
+    document.addEventListener('cut', preventEvent);
+    document.addEventListener('paste', preventEvent);
+    document.addEventListener('keydown', function(e) {
+      if (
+        (e.ctrlKey && ['c','u','s','a','p'].includes(e.key.toLowerCase())) ||
+        e.key === 'F12' || e.key === 'PrintScreen' || e.key === 'F5'
+      ) {
+        preventEvent(e);
+      }
+    });
+    document.addEventListener('touchstart', function(e) {
+      if (e.touches.length > 1) preventEvent(e);
+    }, { passive: false });
   </script>
 </body>
 </html>

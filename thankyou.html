@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Thank You - Barni Shop</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Thank you for your purchase at Barni Shop. Retrieve your unique ID here." />
+    <meta name="theme-color" content="#ff6ec4" />
     <style>
         body {
             min-height: 100vh;
@@ -13,34 +14,63 @@
             background: linear-gradient(-45deg, #ff6ec4, #7873f5, #42e695, #f9d423, #ff6ec4);
             background-size: 400% 400%;
             animation: gradientBG 8s ease-in-out infinite;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #fff;
+            transition: background 0.5s, color 0.5s;
+            overflow-x: hidden;
         }
         @keyframes gradientBG {
             0% {background-position:0% 50%;}
             50% {background-position:100% 50%;}
             100% {background-position:0% 50%;}
         }
+        body.dark-mode {
+            background: #121212;
+            color: #eee;
+        }
+        .container {
+            max-width: 100vw;
+            padding: 20px 15px;
+            margin: 0 auto;
+            text-align: center;
+        }
         .logo {
-            font-size: 2.2em;
             font-family: 'Georgia', serif;
+            font-size: 2.5em;
             letter-spacing: 2px;
             color: #fff;
-            margin-top: 30px;
-            text-shadow: 0 2px 16px #0008;
+            margin-top: 20px;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            user-select: none;
+        }
+        .logo svg {
+            width: 40px;
+            height: 40px;
+            fill: #ff6ec4;
+            animation: pulse 3s infinite alternate;
+        }
+        @keyframes pulse {
+            0% {transform: scale(1);}
+            100% {transform: scale(1.1);}
         }
         .op-warning {
             margin: 40px auto 30px auto;
-            padding: 18px 20px;
-            max-width: 400px;
+            padding: 20px;
+            max-width: 450px;
             border-radius: 15px;
-            background: rgba(0,0,0,0.7);
-            box-shadow: 0 6px 32px #0006;
+            background: rgba(0,0,0,0.75);
+            box-shadow: 0 6px 32px rgba(0,0,0,0.5);
             border: 3px solid transparent;
             background-clip: padding-box;
             text-align: center;
             position: relative;
         }
         .op-warning-title {
-            font-size: 1.5em;
+            font-size: 1.6em;
             font-weight: bold;
             background: linear-gradient(90deg, #ff6ec4, #42e695, #f9d423, #7873f5, #ff6ec4);
             background-size: 200% 200%;
@@ -49,9 +79,9 @@
             color: transparent;
             -webkit-text-fill-color: transparent;
             animation: gradientText 3s linear infinite;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             letter-spacing: 1px;
-            text-shadow: 0 2px 8px #0006;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
         }
         @keyframes gradientText {
             0% {background-position:0% 50%;}
@@ -60,145 +90,320 @@
         }
         .op-warning-text {
             color: #fff;
-            font-size: 1.08em;
+            font-size: 1.1em;
             margin-bottom: 10px;
+            line-height: 1.5;
         }
         .key-box {
             background: linear-gradient(90deg, #42e695, #ff6ec4, #f9d423, #7873f5, #42e695);
             background-size: 300% 300%;
             animation: gradientText 5s ease-in-out infinite;
-            font-size: 1.5em;
-            padding: 18px 10px;
+            font-size: 1.6em;
+            padding: 20px 15px;
             margin: 30px auto 20px auto;
-            max-width: 370px;
-            border-radius: 10px;
+            max-width: 400px;
+            border-radius: 12px;
             text-align: center;
             letter-spacing: 2px;
             font-weight: bold;
             color: #fff;
-            box-shadow: 0 4px 30px #0004;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
             user-select: none;
             -webkit-text-stroke: 0.7px #111;
             text-stroke: 0.7px #111;
-            text-shadow: 0 1px 3px #0006;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            position: relative;
+            word-break: break-word;
+        }
+        .copy-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: #42e695;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: background 0.3s;
+            user-select: none;
+        }
+        .copy-btn:hover, .copy-btn:focus {
+            background: #3ac580;
+            outline: none;
+        }
+        .copy-feedback {
+            display: inline-block;
+            margin-left: 8px;
+            color: #f9d423;
+            font-size: 1em;
+            vertical-align: middle;
+            animation: fadeOut 2s 0.7s forwards;
+            user-select: none;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; }
         }
         .screenshot-tip {
             color: #fff;
             margin-top: 15px;
             font-size: 1.1em;
             font-style: italic;
-            text-shadow: 0 2px 8px #0008;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            line-height: 1.4;
         }
         .email-link {
             color: #f9d423;
             font-weight: bold;
             text-decoration: underline;
-            word-break: break-all;
+            word-break: break-word;
+        }
+        .email-link:hover, .email-link:focus {
+            color: #ffe066;
+            outline: none;
         }
         .error-message {
             color: #ff6ec4;
             margin-top: 15px;
             font-size: 1.1em;
-            text-shadow: 0 2px 8px #0008;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #7873f5;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            z-index: 10;
+            user-select: none;
+        }
+        .theme-toggle:hover, .theme-toggle:focus {
+            background: #5a56d6;
+            outline: none;
+        }
+        footer {
+            margin-top: 50px;
+            padding: 10px 0;
+            color: #fff;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+            font-size: 0.9em;
+            user-select: none;
         }
         @media (max-width: 500px) {
-            .op-warning, .key-box { max-width: 96vw; font-size: 1em; }
-            .logo { font-size: 1.2em; }
+            .op-warning, .key-box { max-width: 92vw; font-size: 1.2em; }
+            .logo { font-size: 2em; }
+            .op-warning-text, .screenshot-tip, .error-message { font-size: 1em; }
         }
         ::selection { background: transparent; }
         ::-moz-selection { background: transparent; }
-        html, body {
-            max-width: 100vw;
-            overflow-x: hidden;
-            touch-action: pan-y;
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false">🌓</button>
     <header>
-        <div class="logo">Barni Shop</div>
+        <div class="logo" aria-label="Barni Shop logo">
+            <svg aria-hidden="true" viewBox="0 0 64 64" role="img" focusable="false">
+                <circle cx="32" cy="32" r="30" stroke="#fff" stroke-width="2" fill="none" />
+                <text x="32" y="38" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#ff6ec4" font-weight="bold">B</text>
+            </svg>
+            Barni Shop
+        </div>
     </header>
-    <main style="text-align:center; padding:40px 0 0 0;">
-        <div class="op-warning">
+    <main class="container" role="main">
+        <div class="op-warning" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="op-warning-title">⚠️ WARNING! DO NOT LEAVE ⚠️</div>
             <div class="op-warning-text">
-                Please <b>take a screenshot</b> of your <span style="color:#f9d423;">ID</span> below.<br>
-                <span style="color:#ff6ec4;">You must send this screenshot to:</span><br>
-                <a class="email-link" href="mailto:barnigonzales43329@gmail.com">barnigonzales43329@gmail.com</a>
+                Please <b>take a screenshot</b> of your <span style="color:#f9d423;">ID</span> below.<br />
+                <span style="color:#ff6ec4;">You must send this screenshot to:</span><br />
+                <a class="email-link" href="mailto:barnigonzales43329@gmail.com" tabindex="0">barnigonzales43329@gmail.com</a>
             </div>
         </div>
-        <div class="key-box" id="keyBox">Checking your unique ID...</div>
-        <div class="screenshot-tip" id="screenshotTip"></div>
-        <div class="error-message" id="errorMsg"></div>
+        <div class="key-box" id="keyBox" aria-busy="true" aria-live="polite" aria-label="Unique purchase ID">Checking your unique ID...</div>
+        <div class="screenshot-tip" id="screenshotTip" aria-live="polite"></div>
+        <div class="error-message" id="errorMsg" role="alert" aria-live="assertive"></div>
+        <div id="countdown" aria-live="polite" style="margin-top:20px; font-size:1.1em; font-weight:bold;"></div>
     </main>
     <footer>
-        <p style="color:#fff;text-shadow:0 1px 6px #0007;">&copy; 2025 Barni Shop</p>
+        <p>&copy; 2025 Barni Shop</p>
     </footer>
     <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-      import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
-
-      // Correct Firebase configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyD5gKHNDZgtWscpJo_150qfob9BQamFGPI",
-        authDomain: "mywebsite-fce95.firebaseapp.com",
-        projectId: "mywebsite-fce95",
-        storageBucket: "mywebsite-fce95.appspot.com",
-        messagingSenderId: "753608677081",
-        appId: "1:753608677081:web:be90c067135207ddde90c8",
-        measurementId: "G-0P1EH4211W"
-      };
-
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const key = urlParams.get('key');
-      const keyBox = document.getElementById('keyBox');
-      const tip = document.getElementById('screenshotTip');
-      const errorMsg = document.getElementById('errorMsg');
-
-      if (!key) {
-        keyBox.textContent = "No key provided in URL.";
-        tip.textContent = "";
-      } else {
-        const docRef = doc(db, "thankyouLinks", key);
-
-        getDoc(docRef).then(docSnap => {
-          if (!docSnap.exists()) {
-            keyBox.textContent = "Invalid or expired link.";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyD5gKHNDZgtWscpJo_150qfob9BQamFGPI",
+            authDomain: "mywebsite-fce95.firebaseapp.com",
+            projectId: "mywebsite-fce95",
+            storageBucket: "mywebsite-fce95.appspot.com",
+            messagingSenderId: "753608677081",
+            appId: "1:753608677081:web:be90c067135207ddde90c8",
+            measurementId: "G-0P1EH4211W"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const urlParams = new URLSearchParams(window.location.search);
+        const key = urlParams.get('key');
+        const keyBox = document.getElementById('keyBox');
+        const tip = document.getElementById('screenshotTip');
+        const errorMsg = document.getElementById('errorMsg');
+        function showCopyButton(keyText) {
+            let copyBtn = document.getElementById('copyBtn');
+            if (copyBtn) copyBtn.remove();
+            let feedback = document.getElementById('copyFeedback');
+            if (feedback) feedback.remove();
+            copyBtn = document.createElement('button');
+            copyBtn.id = 'copyBtn';
+            copyBtn.className = 'copy-btn';
+            copyBtn.type = 'button';
+            copyBtn.textContent = "Copy ID";
+            copyBtn.setAttribute('aria-label', 'Copy ID to clipboard');
+            copyBtn.onclick = () => {
+                navigator.clipboard.writeText(keyText)
+                    .then(() => {
+                        let feedback = document.createElement('span');
+                        feedback.id = 'copyFeedback';
+                        feedback.className = 'copy-feedback';
+                        feedback.innerHTML = "✔️ Copied!";
+                        copyBtn.after(feedback);
+                        setTimeout(() => feedback.remove(), 2000);
+                    })
+                    .catch(() => {
+                        let feedback = document.createElement('span');
+                        feedback.id = 'copyFeedback';
+                        feedback.className = 'copy-feedback';
+                        feedback.innerHTML = "❌ Copy failed!";
+                        copyBtn.after(feedback);
+                        setTimeout(() => feedback.remove(), 2000);
+                    });
+            };
+            keyBox.appendChild(document.createElement('br'));
+            keyBox.appendChild(copyBtn);
+        }
+        async function fetchKey() {
+            keyBox.setAttribute('aria-busy', 'true');
             tip.textContent = "";
-          } else if (docSnap.data().used) {
-            keyBox.textContent = "This link has already been used.";
-            tip.textContent = "";
-          } else {
-            // Mark as used
-            updateDoc(docRef, { used: true });
-            keyBox.textContent = docSnap.data().purchaseKey || key;
-            tip.textContent = "Take a screenshot of this code and send it to barnigonzales43329@gmail.com";
-          }
-        }).catch(e => {
-          keyBox.textContent = "Error checking key.";
-          tip.textContent = "";
-          errorMsg.textContent = e.message;
+            errorMsg.textContent = "";
+            if (!key) {
+                keyBox.textContent = "No key provided in URL.";
+                keyBox.setAttribute('aria-busy', 'false');
+                return;
+            }
+            try {
+                const docRef = doc(db, "thankyouLinks", key);
+                const docSnap = await getDoc(docRef);
+                if (!docSnap.exists()) {
+                    keyBox.textContent = "Invalid or expired link.";
+                    tip.textContent = "";
+                } else if (docSnap.data().used) {
+                    keyBox.textContent = "This link has already been used.";
+                    tip.textContent = "";
+                } else {
+                    await updateDoc(docRef, { used: true, lastAccessed: Date.now() });
+                    keyBox.textContent = docSnap.data().purchaseKey || key;
+                    tip.textContent = "Take a screenshot of this code and send it to barnigonzales43329@gmail.com";
+                    showCopyButton(keyBox.textContent);
+                    startCountdown(300); // 5 minutes countdown
+                }
+            } catch (e) {
+                keyBox.textContent = "Error checking key.";
+                tip.textContent = "";
+                errorMsg.textContent = e.message;
+            } finally {
+                keyBox.setAttribute('aria-busy', 'false');
+            }
+        }
+        // Countdown timer for urgency
+        const countdownEl = document.getElementById('countdown');
+        let countdownInterval;
+        function startCountdown(seconds) {
+            clearInterval(countdownInterval);
+            let remaining = seconds;
+            updateCountdown(remaining);
+            countdownInterval = setInterval(() => {
+                remaining--;
+                if (remaining <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownEl.textContent = "Your session has expired. Please refresh the page.";
+                    keyBox.textContent = "Link expired.";
+                    tip.textContent = "";
+                } else {
+                    updateCountdown(remaining);
+                }
+            }, 1000);
+        }
+        function updateCountdown(seconds) {
+            const min = Math.floor(seconds / 60);
+            const sec = seconds % 60;
+            countdownEl.textContent = `This ID will expire in ${min}:${sec.toString().padStart(2,'0')}`;
+        }
+        fetchKey();
+        // Theme toggle and auto-detect with aria-pressed update
+        const themeToggle = document.getElementById('themeToggle');
+        function setTheme(mode) {
+            if (mode === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeToggle.textContent = '☀️';
+                themeToggle.setAttribute('aria-pressed', 'true');
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeToggle.textContent = '🌓';
+                themeToggle.setAttribute('aria-pressed', 'false');
+            }
+        }
+        function detectTheme() {
+            if (localStorage.getItem('darkMode')) {
+                setTheme(localStorage.getItem('darkMode') === 'true' ? 'dark' : 'light');
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        }
+        themeToggle.addEventListener('click', () => {
+            const isDark = !document.body.classList.contains('dark-mode');
+            setTheme(isDark  ? 'dark' : 'light');
+            localStorage.setItem('darkMode', isDark);
         });
-      }
+        detectTheme();
     </script>
     <script>
-      // --- BASIC COPY PROTECTION ---
-      document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-      document.addEventListener('selectstart', function(e) { e.preventDefault(); });
-      document.addEventListener('copy', function(e) { e.preventDefault(); });
-      document.addEventListener('cut', function(e) { e.preventDefault(); });
-      document.addEventListener('paste', function(e) { e.preventDefault(); });
-      document.addEventListener('keydown', function(e) {
-          if (
-              (e.ctrlKey && ['c','u','s','a'].includes(e.key.toLowerCase())) ||
-              e.key === 'F12'
-          ) {
-              e.preventDefault();
-          }
-      });
+        // --- COPY PROTECTION ---
+        function preventEvent(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        document.addEventListener('contextmenu', preventEvent);
+        document.addEventListener('selectstart', preventEvent);
+        document.addEventListener('copy', e => {
+            if (!e.target.classList || !e.target.classList.contains('copy-btn')) {
+                preventEvent(e);
+            }
+        });
+        document.addEventListener('cut', preventEvent);
+        document.addEventListener('paste', preventEvent);
+        document.addEventListener('keydown', function(e) {
+            if (
+                (e.ctrlKey && ['c','u','s','a','p'].includes(e.key.toLowerCase())) ||
+                e.key === 'F12' || e.key === 'PrintScreen' || e.key === 'F5'
+            ) {
+                preventEvent(e);
+            }
+        });
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) preventEvent(e);
+        }, { passive: false });
     </script>
 </body>
 </html>

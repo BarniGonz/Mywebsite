@@ -5,7 +5,7 @@
     <!-- Prevent zoom and horizontal pan on mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Barni Shop</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <script 
       src="https://www.paypal.com/sdk/js?client-id=BAADHFcEAOLUME4Wayx-bBu5eqfFngK_RYeX6ZOqlg7NzDHScEyON-aiYemPuQ2qqu5DLDrO-7-qn51FS4&components=hosted-buttons&disable-funding=venmo&currency=PHP">
     </script>
@@ -25,6 +25,22 @@
 
     <main id="mainContent" style="display: none;">
         <section id="products">
+          
+          <!-- Purchase Membership Section -->
+<div class="membership-banner">
+  <div class="membership-gradient">
+    <span class="membership-title">Purchase Membership</span>
+    <form action="https://www.paypal.com/ncp/payment/269TKED228LZ2" method="post" target="_blank" class="membership-paypal">
+      <input class="pp-269TKED228LZ2" type="submit" value="Buy Now" />
+      <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" />
+      <section style="font-size: 0.75rem;">
+        Powered by
+        <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/>
+      </section>
+    </form>
+  </div>
+</div>
+
             <h2>Our Products</h2>
 
             <!-- PRODUCT 1 (NEW) -->
@@ -80,6 +96,14 @@
             </div>
         </section>
     </main>
+  
+  <!-- CUSTOMER SERVICE Luxury Gradient Link -->
+<div class="customer-service-bar">
+  <a
+    href="mailto:barnigonzales43329@gmail.com?subject=Customer%20Service%20Request&body=Hi%20there%2C%0A%0AI%20need%20some%20help%2C%20please.%20Thank%20you%21"
+    class="customer-service-link"
+  >CUSTOMER SERVICE</a>
+</div>
 
     <footer>
         <p>&copy; 2025 Barni Shop</p>
@@ -120,6 +144,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="scripts/script.js"></script>
 </body>
-</html>
+                        </html>

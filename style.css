@@ -317,3 +317,136 @@ html, body {
     overflow-x: hidden;
     touch-action: pan-y;
 }
+
+.membership-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 8px 0;
+    z-index: 10;
+}
+
+.membership-gradient {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 18px 18px 18px;
+    border-radius: 16px;
+    min-width: 220px;
+    width: 98vw;
+    max-width: 400px;
+    background: linear-gradient(120deg, #fffbe6 0%, #ffd700 20%, #f9d423 40%, #42e695 60%, #ff6ec4 80%, #7873f5 100%);
+    background-size: 400% 400%;
+    box-shadow: 0 4px 32px #ffd70044, 0 2px 8px #0002;
+    animation: running-luxury 3.5s linear infinite;
+    position: relative;
+    border: 2.5px solid #ffd700;
+}
+
+@keyframes running-luxury {
+    0% { background-position:0% 50%; }
+    50% { background-position:100% 50%; }
+    100% { background-position:0% 50%; }
+}
+
+.membership-title {
+    font-size: 1.25em;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #ffd700, #fffbe6, #f9d423, #42e695, #ff6ec4, #7873f5, #ffd700);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: running-luxury 2.5s linear infinite;
+    text-shadow: 0 2px 12px #ffd70088, 0 0 8px #fff8;
+}
+
+.membership-paypal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 4px;
+    width: 100%;
+}
+
+.pp-269TKED228LZ2 {
+    text-align:center;
+    border:none;
+    border-radius:0.25rem;
+    min-width:11.625rem;
+    padding:0 2rem;
+    height:2.625rem;
+    font-weight:bold;
+    background-color:#FFD140;
+    color:#000000;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:1rem;
+    line-height:1.25rem;
+    cursor:pointer;
+    box-shadow: 0 2px 16px #ffd70055, 0 0 14px #f9d42344;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+}
+.pp-269TKED228LZ2:hover {
+    background-color: #f9d423;
+    color: #222;
+    transform: scale(1.03);
+}
+
+@media (max-width: 500px) {
+    .membership-gradient {
+        min-width: 0;
+        width: 96vw;
+        max-width: 98vw;
+        padding: 10px 2vw 12px 2vw;
+    }
+    .membership-title {
+        font-size: 1em;
+    }
+}
+
+.customer-service-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 0 8px 0;
+    background: transparent;
+}
+
+.customer-service-link {
+    font-family: 'Georgia', serif;
+    font-size: 1.23em;
+    font-weight: bold;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #ffd700, #fffbe6, #f9d423, #42e695, #ff6ec4, #7873f5, #ffd700);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    animation: running-luxury-customer 2.7s linear infinite;
+    text-shadow: 0 2px 16px #ffd70088, 0 0 8px #fff8;
+    padding: 7px 32px;
+    border-radius: 14px;
+    text-decoration: none;
+    border: 2.5px solid #ffd70044;
+    box-shadow: 0 2px 18px #ffd70022, 0 0 8px #fff8;
+    transition: background 0.3s, color 0.3s, transform 0.15s;
+}
+
+.customer-service-link:hover {
+    color: #ffd700;
+    -webkit-text-fill-color: #ffd700;
+    background: #fffbe6;
+    text-shadow: 0 2px 24px #ffd700bb, 0 0 12px #fff8;
+    transform: scale(1.09);
+}
+
+@keyframes running-luxury-customer {
+    0% { background-position:0% 50%; }
+    50% { background-position:100% 50%; }
+    100% { background-position:0% 50%; }
+}
